@@ -10,14 +10,13 @@ struct Score{
     Score(int num,int time):num(num),time(time){}
     int num;
     int time;
-    
 };
 bool operator < (const Score one,const Score two){
     return (one.num<two.num) || (one.num==two.num&&one.time>two.time);
 }
 
 int arr[MAXN];
-Score dp[100][MAXN][MAXN];
+Score dp[MAXN][MAXN];
 
 int t,n;
 int main(){
@@ -34,10 +33,10 @@ int main(){
         for(int i=1;i<=n;i++){
             for(int j=300;j>=0;j--){
                 for(int k=300;k>=0;k--){
-                    dp[i][j][k]=max(dp[i][j][k],dp[i-1][j][k]);
-                    if(j>=arr[i])  dp[i][j][k]=max(dp[i][j][k],Score(dp[i-1][j-arr[i]][k].num+1,dp[i-1][j-arr[i]][k].time+j));
-                    if(k>=arr[i])  dp[i][j][k]=max(dp[i][j][k],Score(dp[i-1][j][k-arr[i]].num+1,dp[i-1][j][k-arr[i]].time+k));
-                    ans=max(ans,dp[i][j][k]);
+                    dp[j][k]=max(dp[j][k],dp[j][k]);
+                    if(j>=arr[i])  dp[j][k]=max(dp[j][k],Score(dp[j-arr[i]][k].num+1,dp[j-arr[i]][k].time+j));
+                    if(k>=arr[i])  dp[j][k]=max(dp[j][k],Score(dp[j][k-arr[i]].num+1,dp[j][k-arr[i]].time+k));
+                    ans=max(ans,dp[j][k]);
                 }
             }
         }
