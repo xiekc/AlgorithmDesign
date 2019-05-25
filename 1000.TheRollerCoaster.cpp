@@ -2,7 +2,7 @@
 #include <cstring>
 #include <queue>
 using namespace std;
-
+// max flow
 #define MAXN 220
 int cap[MAXN][MAXN];
 int fnet[MAXN][MAXN];
