@@ -3,6 +3,7 @@
 #include <cstring>
 using namespace std;
 
+// bfs
 #define MAXN 50
 #define code(x,i) (x+(1<<(i-1)))
 int arr[MAXN][MAXN];
@@ -17,19 +18,20 @@ struct node{
 };
 int t,n,m,k;
 int minimum;
-int level;
 void bfs(){
     memset(visited,0,sizeof(visited));
     queue<node>q;
     q.push(node(1,0,-1,1));
     visited[1]=true;
-    level=-1;
     while(!q.empty()){
         node t=q.front();
         q.pop();
         if(t.level>k)return;
         // cout<<t.n<<"\n";
-        if(t.n==n)minimum=min(minimum,t.dis);
+        if(t.n==n){
+            minimum=min(minimum,t.dis);
+            continue;
+        };
         for(int i=2;i<=n;i++){
             // cout<<"dis"<<t.n<<i<<" "<<arr[t.n][i]<<endl;
             if(arr[t.n][i]!=-1&&!visited[code(t.state,i)]){
@@ -37,7 +39,6 @@ void bfs(){
                 visited[code(t.state,i)]=true;
             }
         }
-        level++;
     }
 
     return;
